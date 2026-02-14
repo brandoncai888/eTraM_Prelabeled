@@ -141,78 +141,7 @@ def plot_3d(eventsFile,bboxFile):
 
 if __name__ == "__main__":
     folder = './data'
-    eventsFile = folder+'/'+'val_day_014_td_framed_boxed_cluster_crop_predict2-500.csv'
+    eventsFile = folder+'/'+'val_day_014_td_framed_boxed_cluster_crop_predict.csv'
     bboxFile = folder+'/'+'val_day_014_bbox_framed.csv'
     #plot_3d(eventsFile,bboxFile)
     display(eventsFile,bboxFile,True,False,'pred_id')
-'''
-t1 = time.time()
-df = pd.read_csv(eventFilename)
-start = min(df['t'])
-end = max(df['t'])
-xmax = max(df['x'])
-ymax = max(df['y'])
-xmin = min(df['x'])
-ymin = min(df['y'])
-df['y'] = ymax+ymin-df['y']
-print(f"t: {start} - {end} \nx: {xmin} - {xmax} \ny: {ymin} - {ymax} \n")
-print(f"Loaded {eventFilename} in {time.time()-t1} seconds")
-print(df.head())
-
-dfBox = pd.read_csv(boxFilename)
-dfBox['y'] = ymax+ymin-dfBox['y']
-dfBox['h'] = -dfBox['h']
-
-# # time offset in 007 for some reason
-# df['t'] = df['t'] - min(df['t']) 
-# dfBox['t'] = dfBox['t'] - min(dfBox['t'])
-
-print("generating frames...")
-t1 = time.time()
-dfList = []
-dfBoxList = []
-for i in range(start,end,delta):
-    dfList.append((df[(df['t'] >= i) & (df['t'] < i+delta)]))
-    dfBoxList.append((dfBox[(dfBox['t']>=i)&(dfBox['t']<i+delta)]))
-print(f"{len(dfList)} frames generated in {time.time()-t1} seconds")
-
-fig, ax = plt.subplots()
-total = 0
-count = 0
-for i in range(len(dfList)):
-    t1 = time.time()
-    ax.clear()
-    ax.set_xlim(xmin,xmax)
-    ax.set_ylim(ymin,ymax)
-    df = dfList[i]
-    frame = df[df['p'] == 1]
-    frame.plot.scatter(x='x',y='y',ax=ax,color='red', s=0.033)
-
-    frame = df[df['p'] == 0]
-    frame.plot.scatter(x='x',y='y',ax=ax,color='blue',title=f"frame {i}",s=0.033)
-
-    dfBox = dfBoxList[i]
-    for index, row in dfBox.iterrows():
-        # Create a Rectangle patch
-        # patches.Rectangle((x, y), width, height)
-        rect = patches.Rectangle(
-            (row['x'], row['y']), 
-            row['w'], 
-            row['h'], 
-            linewidth=2, 
-            edgecolor='black', 
-            facecolor='none'
-        )
-
-        # Add the patch to the Axes
-        ax.add_patch(rect)
-
-
-
-    plt.draw()
-    plt.pause(0.0001)
-    count += 1
-    total += (time.time()-t1)
-    if count % 50 == 0:
-        print(f"{round(count/total,2)} Hz")
-'''

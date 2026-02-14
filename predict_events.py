@@ -126,6 +126,6 @@ with open('runtime2.txt','a') as f:
     f.write(f'500 = {round(time.time()-t1,1)}s\n')
 print(f"Saving data...")
 events_track = events_track[['x','y','t','p','frame','track_id','pred_id']]
-events_track.to_csv("data/val_day_014_td_framed_boxed_cluster_crop_predict2-500.csv",index=False)
+events_track.to_csv("data/val_day_014_td_framed_boxed_cluster_crop_predict.csv",index=False)
 
 

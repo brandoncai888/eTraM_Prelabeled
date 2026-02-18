@@ -30,7 +30,7 @@ def decode_npy_to_csv(npy_input_path, csv_output_path):
 
 if __name__ == "__main__":
     folder = './data'
-    for filename in ["val_day_014_td.h5","val_day_014_bbox.npy"]:  #os.listdir(folder):
+    for filename in ["val_day_014_bbox.npy","val_day_014_td.h5"]:  #os.listdir(folder):
         if filename[-3:] == '.h5':
             filename = filename[:-3]
             extract_h5_to_csv(folder+"/"+filename+".h5",folder+"/"+filename+".csv")
